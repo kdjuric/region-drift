@@ -1,0 +1,8 @@
+CAL_FOLDER = 
+FOLDER = 
+V_KAPPA = 
+V_ALPHA = 
+V_BETA = 
+B_KAPPA = 
+B_ALPHA = 
+B_BETA = 
