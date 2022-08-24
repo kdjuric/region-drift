@@ -1,8 +1,8 @@
-CAL_FOLDER = 
-FOLDER = 
-V_KAPPA = 
-V_ALPHA = 
-V_BETA = 
-B_KAPPA = 
-B_ALPHA = 
-B_BETA = 
+FOLDER = "images/"
+CAL_FOLDER = FOLDER + "calibrated/"
+V_KAPPA = -2.706
+V_ALPHA = -0.1588
+V_BETA = 20.359
+B_KAPPA = -3.301
+B_ALPHA = -0.2231
+B_BETA = 19.945
