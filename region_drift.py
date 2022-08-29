@@ -38,10 +38,10 @@ class FindFluxes:
 
         self.fits = fit_file
         self.reg = reg
-        self.cal_reg = (CAL_FOLDER + reg.split('/')[-1])
+        self.cal_reg = (CAL_FOLDER + reg.split('\\')[-1])
 
         hdu_list = fits.open(self.fits)
-        self.date_time = hdu_list[0].header['DATE-OBS'].replace('T', '')
+        self.date_time = hdu_list[0].header['DATE-OBS']
         self.exposure = int(np.floor(float(hdu_list[0].header['EXPTIME'])))
         self.filter = hdu_list[0].header['FILTER']
 
@@ -187,7 +187,7 @@ class FindFluxes:
 
         ## Set location to Waterloo, On
         loc = EarthLocation(lat=43.4643, lon=-80.5204, height=340*u.m)
-        time = Time(self.date_time)
+        time = Time(self.date_time, format='isot')
         cAltAz = c.transform_to(AltAz(obstime=time, location=loc))
 
         return cAltAz.to_string(style='decimal').split(" ")
@@ -374,6 +374,8 @@ class FindFluxes:
             self.open_reg(self.cal_reg, True)
 
         for point in self.list_of_points:
+            if point[-2] == 0.0:
+                continue
             self.find_sum(point)
             self.output_to_file(self.fits[:-4],
                 self.list_of_points,
@@ -442,8 +444,8 @@ def check_cal_folder() -> tuple:
     calibrated_files = fit_and_reg_checker(CAL_FOLDER)
 
     try:
-        a = [i.split("/")[-1] for i in calibrated_files]
-        b = [i.split("/")[-1] for i in non_cal_files]
+        a = [i.split("\\")[-1] for i in calibrated_files]
+        b = [i.split("\\")[-1] for i in non_cal_files]
 
         assert a == b
     
